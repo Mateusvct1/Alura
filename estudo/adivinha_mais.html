@@ -1,58 +1,71 @@
 <meta charset="utf-8">
-<input type="" name="">
-<button>compare com o meu segredo</button>
-<script type="text/javascript">
+<input>
+<button>Compare com o meu segredo</button>
+<script>
 
 
 	function sorteia() {
 		/* Math.round() - retorna o valor de um número arredondado. 
 		 Math.random()-  gera um número aleatório, nesse caso de 0 a 10.*/
-		
-		return Math.round(Math.random() * 10 );
+
+		return Math.round(Math.random() * 10);
 
 	}
+	// Aqui é como o sorteiaNumeros estivesse assim "sorteiaNumeros(5)"
 	function sorteiaNumeros(quantidade) {
-		var segredos = [];
+		var segredos = [];//array
 		var numero = 1;
-		while (numero <= quantidade){
+		while (numero <= quantidade) {
 			var numeroAleatorio = sorteia();
-			if (numeroAleatorio != 0) {
+			//criou esse if abaixo para que o programa não gere mais o numero 0
+			if (numeroAleatorio !== 0) {
 				var achou = false;
+				//length retorna a quantidade de array que ele tem
+				for (var posicao = 0; posicao < segredos.length; posicao++); {
+					// varrer a posição e 0 ate segredos
+					if (segredos[posicao] == numeroAleatorio) {
+			 			// se a posição do segredo for acertada, vai imprimir a variável achou que recebe como verdadeiro.
+						achou = true;
+						break;
+					}
+				}
+				if (achou == false) {
+					segredos.push(numeroAleatorio);
+					numero++;
+					//aqui ele so vai incrementar se o achou for igual a falso
+				}
+			}
 
-			 for (var posicao = 0;posicao <segredos.length; posicao++); {
-			 	if (segredos[posicao]==numeroAleatorio)  {
-			 		achou = true;
-			 		break;
-			 	}
-			 }
-			if (achou == false) {
-				segredos.push(numeroAleatorio);
-				numero++;
-			}
-			}
-			
 		}
 		return segredos;
 	}
+	//o 5 é quantidade de segredos nese caso é 5 como escrito abaixo.
 	var segredos = sorteiaNumeros(5);
-var input = document.querySelector("input");
-input.focus();
-function verifica(){
-	var achou = false;
-for (var posicao = 0; posicao < segredos.length; posicao++) {
-	if (input.value == segredos[posicao]) {
-	alert("vc acertou");
-	achou = true;
-	break;
-}
-}
-if (achou == false) {
-	alert("Você errou")
-}
-	
-input.value ="";
-input.focus();
-}
-var button =document.querySelector("button");
-button.onclick = verifica;
+	console.log(segredos);
+	var input = document.querySelector("input");
+	input.focus();// assim que recarregar a paginha a caixinha já está com o foco.
+	function verifica() {
+		var achou = false;
+		//length retorna a quantidade de array que ele tem.
+		for (var posicao = 0; posicao < segredos.length; posicao++) {
+			// para saber o valor que tem no input, coloquei o input.value
+			if (input.value == segredos[posicao]) {
+				//aqui o programa verifica se o que o usuário digitou é igual ao segredo
+				//se acertar a variável achou vai ser verdadeiro e exibirá um alerta como ta escrito abaixo.
+				alert("vc acertou");
+				achou = true;
+				break;
+			}
+		}
+		//se errar a variável achou vai ser falso e exibirá um alerta como ta escrito abaixo.
+		if (achou == false) {
+			alert("Você errou");
+		}
+
+		input.value = "";// para limpar o campo.
+		input.focus();// para a caixinha já ficar com o cursor dentro depois de rodado o programa.
+	}
+	var button = document.querySelector("button");
+	// Quando o usuário clicar no botão, vai rodar função verificar, tirei os parentese para quando rodar somente se clicar no button. Pois se colocasse verifica() ele rodaria assim q recarregasse a pagina
+	button.onclick = verifica;
 </script>
